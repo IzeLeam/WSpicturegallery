@@ -14,29 +14,21 @@ if (!isset ($_SESSION ['username'])){
 else{
     if (isset($_POST['pictures_name'])) {
 
-        $pictures_name = basename($_POST['pictures_name']);
-        
-        // Définir le dossier de base sécurisé
-        $user_upload_dir = realpath(__DIR__ . "/uploads/" . $_SESSION['username']);
-        
-        // Construire le chemin complet
-        $path = $user_upload_dir . DIRECTORY_SEPARATOR . $pictures_name;
-        
-        // Résoudre le chemin réel et vérifier qu'il est bien dans le dossier utilisateur
-        $real_path = realpath($path);
-        
-        if ($real_path && strpos($real_path, $user_upload_dir) === 0 && file_exists($real_path)) {
-            $sql2 = $connection->prepare("DELETE FROM pictures WHERE pictures_name = ?");
-            $sql2->bind_param("s", $pictures_name);
+        $pictures_name = $_POST['pictures_name'];
 
-            if ($sql2->execute()) {
-                if (unlink($real_path)) {
-                    echo "Removed picture " . htmlspecialchars($pictures_name) . "<br>";
-                    echo "Removed picture " . htmlspecialchars($pictures_name) . ", continue with <a href=''>deleting pictures</a>";
-                }
+        $sql2 = $connection->prepare("DELETE FROM pictures WHERE pictures_name = ?");
+        $sql2->bind_param("s", $pictures_name);
+
+        if ($sql2->execute()) {
+
+            $path = "uploads/" . basename($pictures_name);
+
+            if (unlink($path)) {
+                echo "Removed picture " . $path . "<br>";
+                echo "Removed picture " . $pictures_name . ", continue with <a href=''>deleting pictures</a>";
             }
-            $sql2->close();
         }
+        $sql2->close();
     }
     
     $sql1 = "SELECT users.users_username, pictures.pictures_name FROM pictures INNER JOIN users ON pictures.id_users = users.users_id";
