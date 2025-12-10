@@ -21,7 +21,7 @@ else{
 
         if ($sql2->execute()) {
 
-            $path = "uploads/" . $pictures_name;
+            $path = "uploads/" . basename($pictures_name);
 
             if (unlink($path)) {
                 echo "Removed picture " . $path . "<br>";
