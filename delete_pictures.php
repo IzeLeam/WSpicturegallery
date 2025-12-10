@@ -12,18 +12,23 @@ if (!isset ($_SESSION ['username'])){
 	header('location: index.php');
 }
 else{
-    if (isset ($_POST['pictures_name'])){
+    if (isset($_POST['pictures_name'])) {
+
         $pictures_name = $_POST['pictures_name'];
-        
-        $sql2 = "DELETE FROM pictures WHERE pictures_name = '{$pictures_name}'";
-        if (mysqli_query ($connection, $sql2)){
+
+        $sql2 = $connection->prepare("DELETE FROM pictures WHERE pictures_name = ?");
+        $sql2->bind_param("s", $pictures_name);
+
+        if ($sql2->execute()) {
+
             $path = "uploads/" . $pictures_name;
-            if (unlink ($path)){
+
+            if (unlink($path)) {
                 echo "Removed picture " . $path . "<br>";
-                echo "Removed picture " . $pictures_name . ", continue with  " . "<a href=''>" . "deleting pictures" . "</a>";
-                unset ($path);
+                echo "Removed picture " . $pictures_name . ", continue with <a href=''>deleting pictures</a>";
             }
         }
+        $sql2->close();
     }
     
     $sql1 = "SELECT users.users_username, pictures.pictures_name FROM pictures INNER JOIN users ON pictures.id_users = users.users_id";
