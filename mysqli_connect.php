@@ -10,8 +10,8 @@
 //DEFINE ('DB_HOST', '127.0.0.1');
 
 // Set the database access information as constants:
-DEFINE ('DB_USER', 'johndoe');
-DEFINE ('DB_PASSWORD', 'Motdepasse0!');
+DEFINE ('DB_USER', 'ExampleUser');
+DEFINE ('DB_PASSWORD', 'ExamplePassword123');
 DEFINE ('DB_HOST', 'sqlformationcloud.musql.database.azure.com');
 DEFINE ('DB_NAME', 'picturegallery');
 
