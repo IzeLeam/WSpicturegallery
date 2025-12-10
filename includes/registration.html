@@ -5,8 +5,8 @@
         <div class="container-fluid loginouter">
             <div class="card bg-light mb-3">
                 <div class="card-body">
-    <form action="check_registration.php" method="POST">
-        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+    <form action="check_registration" method="POST">
+        {% csrf_token %}
         Registration username:<br>
         <input type="text" name="username"><br>
         Registration password:<br>
@@ -15,7 +15,7 @@
     </form>
 </div>
 </div>
-    </div> <!-- end of <div class="container-left"> -->
+    </div>
 </div>
 
-</section><!-- /Hero Section -->
+</section>
