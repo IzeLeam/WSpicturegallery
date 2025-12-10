@@ -1,11 +1,10 @@
 # Step 1: Define workflow name.
-name: semgrep
+name: SAST
 
 # Step 2:
 # You can choose any combination of triggers below,
 # but make sure to include at least an option to run manually
 on:
-  push: # Trigger on push events
   workflow_dispatch: # Trigger manually via GitHub UI
   workflow_call: # Triggered by other workflows
   pull_request: # Trigger on pull requests
